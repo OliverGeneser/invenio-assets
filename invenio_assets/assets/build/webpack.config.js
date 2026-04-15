@@ -56,7 +56,7 @@ var webpackConfig = {
     children: true,
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx"],
+    extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
     symlinks: false,
     alias: aliases,
     fallback: {
@@ -141,13 +141,17 @@ var webpackConfig = {
         ],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: [/node_modules/, /@babel(?:\/|\\{1,2})runtime/],
         use: [
           {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"],
+              presets: [
+                "@babel/preset-env",
+                "@babel/preset-react",
+                "@babel/preset-typescript",
+              ],
               plugins: [
                 "@babel/plugin-proposal-class-properties",
                 "@babel/plugin-transform-runtime",

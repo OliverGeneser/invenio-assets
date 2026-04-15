@@ -56,7 +56,7 @@ var webpackConfig = {
     children: true,
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx"],
+    extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
     symlinks: false,
     alias: aliases,
     fallback: {
@@ -139,6 +139,29 @@ var webpackConfig = {
             parser: {
               syntax: "ecmascript",
               jsx: true,
+            },
+            externalHelpers: true,
+            transform: {
+              react: {
+                development: !prod,
+                useBuiltins: true,
+              },
+            },
+          },
+          env: {
+            targets: "Chrome >= 48",
+          },
+        },
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: [/node_modules/],
+        loader: "builtin:swc-loader",
+        options: {
+          jsc: {
+            parser: {
+              syntax: "typescript",
+              tsx: true,
             },
             externalHelpers: true,
             transform: {
